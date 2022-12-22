@@ -12,6 +12,8 @@ import {
   import { useEffect , useState} from "react";
   import { getFirestore , doc, getDoc, getDocs  } from "firebase/firestore";
   import init from 'react_native_mqtt';
+  import { useToast } from "react-native-toast-notifications";
+
   import AsyncStorage from '@react-native-async-storage/async-storage';
 const Home = ({ navigation }) => {
     //Firebase
@@ -19,6 +21,8 @@ const Home = ({ navigation }) => {
     const db = getFirestore(app);
     const [data,setData] = useState({});
     const [pass,setPass] = useState("");
+    const Toast = useToast();
+   
     const handlePass =(e)=>{
       setPass(e)
     }
@@ -44,6 +48,8 @@ const Home = ({ navigation }) => {
       }
     }
     useEffect(()=>{
+   
+      
       getData();
       },[])
     //--------------------------------------------------------------------
@@ -77,8 +83,12 @@ const Home = ({ navigation }) => {
       message.destinationName = "pass";
       message.qos = 2;
       message.retained = true;
-      console.log(message._getRetained());
-      client.send(message);})
+      client.send(message);
+      Toast.show("Password Chanegd Succefully",{
+        type:"success",
+        animationType: "slide-in"
+      });
+    })
   })}
 
 
@@ -86,7 +96,8 @@ const Home = ({ navigation }) => {
 
 
     //--------------------------------------------------------------------
-    return (    <View style={S.container}>
+    return (
+    <View style={S.container}>
        <ThemeInput placeholder="New Device Password" onChangeText={handlePass} style={S.margin} />
       <ThemeButtonContainer onPress={handleMSG} style={S.margin}>
           <ThemeText style={{ ...S.center, color: S.theme.white }}>
@@ -98,7 +109,6 @@ const Home = ({ navigation }) => {
             Log Out
           </ThemeText>
         </ThemeButtonContainer>
-        
     </View>
         );
 }

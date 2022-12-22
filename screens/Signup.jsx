@@ -10,8 +10,7 @@ import { S } from "../global/styles";
 import {createUserWithEmailAndPassword , getAuth} from 'firebase/auth'
 import { getFirestore , doc, setDoc } from "firebase/firestore";
 import { app } from "../global/firebaseConf"
-import firestore from '@react-native-firebase/firestore';
-
+import { useToast } from "react-native-toast-notifications";
 const Signup = ({ navigation }) => {
   const auth = getAuth(app);
   const db = getFirestore(app);
@@ -19,6 +18,7 @@ const Signup = ({ navigation }) => {
   const [pass,setPass] = useState("")
   const [deviceuser,setDeviceUser] = useState("")
   const [devicepass,setDevicePass] = useState("")
+  const Toast = useToast();
   const handleEmail =(e)=>{
     setEmail(e)
   }
@@ -55,6 +55,10 @@ const Signup = ({ navigation }) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage);
+        Toast.show("Check Credentials",{
+          type:"danger",
+          animationType: "slide-in"
+        });
       })
       
    

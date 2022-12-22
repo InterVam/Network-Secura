@@ -8,12 +8,13 @@ import {
   TextIn
 } from "../global/components";
 import { S } from "../global/styles";
+import { useToast } from "react-native-toast-notifications";
 import { app } from "../global/firebaseConf";
 import { getAuth ,signInWithEmailAndPassword  } from "firebase/auth";
 
 const Login = ({ navigation }) => {
   const auth = getAuth(app);
-
+  const Toast = useToast();
 
   useEffect(()=>{
    const unsubscribe = auth.onAuthStateChanged(user => {
@@ -47,6 +48,10 @@ const Login = ({ navigation }) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorMessage);
+      Toast.show("Check Credentials",{
+        type:"danger",
+        animationType: "slide-in"
+      });
     });
  
 

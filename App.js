@@ -9,7 +9,7 @@ import Signup from "./screens/Signup";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
-
+import { ToastProvider } from 'react-native-toast-notifications'
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator();
@@ -37,6 +37,7 @@ export default function App() {
   }
 
   return (
+    <ToastProvider>
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Login"
@@ -47,6 +48,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
+    </ToastProvider>
   );
 }
 
