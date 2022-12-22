@@ -9,8 +9,22 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "plugins": [
+        "@react-native-firebase/app",
+        "@react-native-firebase/auth",
+        "@react-native-firebase/firestore",
+        "@react-native-firebase/perf",
+        "@react-native-firebase/crashlytics"
+      ],
+      "android": {
+        "googleServicesFile": "./google-services.json"
+      },
+      "ios": {
+        "googleServicesFile": "./GoogleService-Info.plist"
+      }
     },
+    
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -19,15 +33,23 @@
     ],
     "ios": {
       "supportsTablet": true
+    
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+       
+      },
+      "package": "com.intervam.SecuraApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ab61ec95-2ed2-4dbe-aea8-ff0b32a13ba4"
+      }
     }
   }
 }
