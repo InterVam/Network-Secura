@@ -20,7 +20,6 @@ const Login = ({ navigation }) => {
    const unsubscribe = auth.onAuthStateChanged(user => {
         if(user){
             navigation.replace("Home")
-          console.log(user.email)
         }
 
     })
@@ -30,7 +29,6 @@ const Login = ({ navigation }) => {
   
   const handleEmail =(e)=>{
     setEmail(e)
-    console.log(e);
     
   }
   const handlePass =(e)=>{
@@ -47,7 +45,6 @@ const Login = ({ navigation }) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorMessage);
       Toast.show("Check Credentials",{
         type:"danger",
         animationType: "slide-in"
