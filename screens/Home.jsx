@@ -41,7 +41,6 @@ const Home = ({ navigation }) => {
       if (docSnap.exists()) {
         
         setData(docSnap.data())
-        console.log(data);
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -78,7 +77,6 @@ const Home = ({ navigation }) => {
       userName:data?.Duser,
       password:data?.Dpass,
       onSuccess:(()=>{
-      console.log("Connected");
       var message = new Paho.MQTT.Message(pass);
       message.destinationName = "pass";
       message.qos = 2;

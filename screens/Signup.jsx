@@ -42,7 +42,7 @@ const Signup = ({ navigation }) => {
             Duser: deviceuser,
             Dpass: devicepass
           });
-          console.log("Document written with ID: ", docRef.id);
+
         } catch (e) {
           console.error("Error adding document: ", e);
         }
@@ -54,7 +54,6 @@ const Signup = ({ navigation }) => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
         Toast.show("Check Credentials",{
           type:"danger",
           animationType: "slide-in"
