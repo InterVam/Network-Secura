@@ -5,7 +5,6 @@ import {
   ThemeInput,
   ThemeText,
   ThemeButtonContainer,
-  TextIn
 } from "../global/components";
 import { S } from "../global/styles";
 import { useToast } from "react-native-toast-notifications";
@@ -13,39 +12,37 @@ import { app } from "../global/firebaseConf";
 import { getAuth ,signInWithEmailAndPassword  } from "firebase/auth";
 
 const Login = ({ navigation }) => {
+  const [email,setEmail] = useState("")
+  const [pass,setPass] = useState("")
   const auth = getAuth(app);
   const Toast = useToast();
 
   useEffect(()=>{
    const unsubscribe = auth.onAuthStateChanged(user => {
         if(user){
-            navigation.replace("Home")
+          navigation.replace("Home")
         }
-
     })
-
     return unsubscribe;
   },[])
-  
+ 
   const handleEmail =(e)=>{
     setEmail(e)
-    
   }
+
   const handlePass =(e)=>{
     setPass(e)
   }
-    const [email,setEmail] = useState("")
-    const [pass,setPass] = useState("")
+
   const handlesignIn = ()=>{ 
-   
     signInWithEmailAndPassword(auth, email, pass)
-    .then((userCredential) => {
-      const user = userCredential.user;
-    })
+    // .then((userCredential) => {
+    //   const user = userCredential.user;
+    // })
     .catch((error) => {
       const errorCode = error.code;
-      const errorMessage = error.message;
-      Toast.show("Check Credentials",{
+      // const errorMessage = error.message;
+      Toast.show(`Check Credentials ${errorCode}`,{
         type:"danger",
         animationType: "slide-in"
       });
@@ -53,7 +50,6 @@ const Login = ({ navigation }) => {
  
 
   }
-
 
   return (
     <KeyboardAvoidingView style={S.container}>

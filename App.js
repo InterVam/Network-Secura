@@ -1,10 +1,7 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import Login from "./screens/Login";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useLayoutEffect } from "react";
-import { ThemeText } from "./global/components";
 import Signup from "./screens/Signup";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -51,16 +48,3 @@ export default function App() {
     </ToastProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fafafa",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontFamily: "Teko-Bold",
-    fontSize: 45,
-  },
-});

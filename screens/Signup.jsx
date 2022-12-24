@@ -32,37 +32,31 @@ const Signup = ({ navigation }) => {
     setDevicePass(e)
   }
     
-    const handleSignUp = ()=>{ 
-   
-      createUserWithEmailAndPassword(auth, email, pass)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        try  {
-          const docRef = setDoc(doc(db, "users",userCredential.user.uid), {
-            Duser: deviceuser,
-            Dpass: devicepass
-          });
-
-        } catch (e) {
-          console.error("Error adding document: ", e);
-        }
-
-
-        
-      })
-      
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        Toast.show("Check Credentials",{
+  const handleSignUp = ()=>{ 
+    createUserWithEmailAndPassword(auth, email, pass)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      try  {
+          setDoc(doc(db, "users",user.uid), {
+          Duser: deviceuser,
+          Dpass: devicepass
+        });
+      } catch (e) {
+        Toast.show("Server error, please try again later",{
           type:"danger",
           animationType: "slide-in"
         });
-      })
-      
-   
-  
-    }
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      // const errorMessage = error.message;
+      Toast.show(`Check Credentials ${errorCode}`,{
+        type:"danger",
+        animationType: "slide-in"
+      });
+    })
+  }
 
 
   return (
