@@ -1,4 +1,4 @@
-import { Button, KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
+import { KeyboardAvoidingView, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import {

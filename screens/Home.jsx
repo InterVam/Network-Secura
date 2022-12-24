@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 import { getAuth  } from "firebase/auth";
 import {
     ThemeInput,
@@ -43,7 +43,6 @@ const Home = ({ navigation }) => {
         setData(docSnap.data())
       } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
       }
     }
     useEffect(()=>{
@@ -73,19 +72,31 @@ const Home = ({ navigation }) => {
     client.connect({
       useSSL: false,
       timeout: 3,
-      onFailure:(()=>{console.log("Fail")}),
+      onFailure:(()=>{
+        Toast.show("Failed to connect to the server",{
+          type:"danger",
+          animationType: "slide-in"
+        });
+      }),
       userName:data?.Duser,
       password:data?.Dpass,
       onSuccess:(()=>{
-      var message = new Paho.MQTT.Message(pass);
-      message.destinationName = "pass";
-      message.qos = 2;
-      message.retained = true;
-      client.send(message);
-      Toast.show("Password Chanegd Succefully",{
-        type:"success",
-        animationType: "slide-in"
-      });
+      if(/^\d+$/.test(pass) && pass.length == 6) {
+        var message = new Paho.MQTT.Message(pass);
+        message.destinationName = "pass";
+        message.qos = 2;
+        message.retained = true;
+        client.send(message);
+        Toast.show("Password Chanegd Succefully",{
+          type:"success",
+          animationType: "slide-in"
+        });
+      } else {
+        Toast.show("Password can only contain 6 digits",{
+          type:"danger",
+          animationType: "slide-in"
+        });
+      }
     })
   })}
 
